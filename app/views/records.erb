@@ -1,0 +1,21 @@
+<h1 class="title">Past Diagnostic Results For <%= @name %></h1>
+
+<table class = "result-table">
+	<tr>
+    	<th>Time</th>
+    	<th>Symptoms</th>
+    	<th>Diagnosis</th>
+  	</tr>
+<% for i in 0..@recs.length-1 %>
+	<tr>
+		<td><%= @recs[i].time() %></td><td><%= @recs[i].symptoms().join(", ") %></td><td><%= @recs[i].disease()%></td></tr>
+
+<% end %>
+</table>
+
+<form action='/records/delete' method='POST'>
+    <input id="name" type="hidden" name="name" value= "<%= @name %>" >
+    <button type='submit' class="button">Delete History</button>
+</form>
+
+<a href="/" class="button">Return Home</a>

@@ -1,0 +1,17 @@
+<!-- <p>Diagnosis for:  <%= @name %></p> -->
+<!-- <p>Last answer was: <%= @answer %></p> -->
+<div class="question">
+<form method="post" action="/diagnosis/">
+  <!-- <p>Answers: <%= @answers.to_s %></p> -->
+  <p class="question__text"><!-- <%= @question %>. -->Question stuff go here</p>
+  <div class="question__radiogroup">
+    <input type="radio" name="answer" value="yes" class="question__radio" id="yes" required>
+    <label for="yes" class="question__label">Yes</label>
+  </div>
+  <div class="question__radiogroup">
+    <input type="radio" name="answer" value="no" class="question__radio" id="no">
+    <label for="no" class="question__label">No</label>
+  </div>
+  <input type="submit" class="button">
+</form>
+</div>
