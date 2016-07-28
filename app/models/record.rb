@@ -4,55 +4,34 @@ class Record
 	@time
 	@disease
 	@symptoms
-	@history="records.txt"
 
 	# default constructor
 	#
-	def initialize()
+	def initialize(entry)
+		@name = entry["name"]
+		@time = entry["timestamp"]
+		@disease = getDisease(entry["disease_id"])
+		@symptoms = getSymptoms(entry["disease_id"])
 	end
 
-	# Sets the name of the file to which records will be stored
-	#
-	# filename -> string containing the filename
-	#
-	def setHistory(filename)
-		@history = filename
+	def Record.deleteAll(name)
+		DATA.execute("DELETE * FROM diagnosis where name = '#{name}'")
 	end
 
-	# Sets values to a specific line in the file
-	#
-	def loadLine(line)
-		file = File.open(@history, "r")
-		for i in 0..line
-			entry = file.gets
+	def getDisease(id)
+		dis = DATA.execute("SELECT name FROM disease WHERE id = #{id}")[0]["name"]
+		return dis
+	end
+
+	def getSymptoms(id)
+		symptom_ids = DATA.execute("SELECT symptom_id FROM relationship WHERE disease_id = #{id}")
+		symptoms = []
+		for i in 0..symptom_ids.length-1
+			symptoms.push(DATA.execute("SELECT name FROM symptom WHERE id = #{symptom_ids[i][0]}")[0][0])
 		end
-		entry = entry.split(",")
-		@name=entry[0]
-		@time=entry[1]
-		@symptoms=entry[2].split(";")
-		@disease=entry[3]
-		file.close
+		return symptoms
 	end
 
-	# Sets values to given entry string
-	#
-	def useEntry(entry)
-		entry = entry.split(",")
-		@name=entry[0]
-		@time=entry[1]
-		@symptoms=entry[2].split(";")
-		@disease=entry[3]
-	end
-
-	# writes current record to file
-	#
-	def writeLine()
-		file = File.open(@history, "a")
-		@symptoms = @symptoms.join(";")
-		entry = @name + "," + @time + "," + @symptoms + "," + @disease + "\n"
-		file.puts entry
-		file.close
-	end
 
 	def name()
 		return @name
@@ -70,42 +49,4 @@ class Record
 		return @disease
 	end
 
-	# deletes all records with specified name
-	# 
-	def Record.deleteAll(name)
-		oldFile = File.open(@history, "r")
-		goodLines = []
-		while (line=oldFile.gets)
-			if line.split(",")[0]!=name
-				goodLines.push(line)
-			end
-		end
-		oldFile.close
-		newFile = File.open(@history, "w")
-		for line in goodLines
-			newFile.puts line
-		end
-		newFile.close
-	end
-
-	# returns array of all records for given name
-	#
-	def Record.returnAll(name)
-		hist = File.open(@history, "r")
-		all = []
-		temp = Record.new
-		while (line=hist.gets)
-			puts line +"\n"
-			temp.useEntry(line)
-			if temp.name()==name
-				puts temp
-				all.push(temp)
-			end
-		end
-		return all
-	end
-
 end
-
-test = Record.returnAll("Susan")
-#puts test[0].name()

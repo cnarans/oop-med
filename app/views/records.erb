@@ -1,4 +1,4 @@
-<h1 class="title">Past Diagnostic Results For <%= @name %></h1>
+<h1 class="title">Past Diagnostic Results For <%= session['i'] %></h1>
 
 <table class = "result-table">
 	<tr>
@@ -6,7 +6,7 @@
     	<th>Symptoms</th>
     	<th>Diagnosis</th>
   	</tr>
-<% for i in 0..@recs.length-1 %>
+<% for i in 0..@recs.count-1 %>
 	<tr>
 		<td><%= @recs[i].time() %></td><td><%= @recs[i].symptoms().join(", ") %></td><td><%= @recs[i].disease()%></td></tr>
 
