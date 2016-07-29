@@ -37,5 +37,44 @@ class Diagnoser
 		return @symptoms[number]["name"]
 	end
 
+	def isSymptom(disease, symptom)
+		opinion = DATA.execute("SELECT * FROM relationship WHERE disease_id=#{disease} AND symptom_id=#{symptom}")
+		if opinion.empty?
+			return false
+		else
+			return true
+		end
+	end
+
+	def likelihood(disease, sympnum)
+		total = DATA.execute("SELECT * FROM relationship WHERE disease_id=#{disease}")
+		total = total.count.to_f
+		sympnum = sympnum.to_f
+		return sympnum/total
+	end
+
+	def diseaseName(id)
+		return @diseases[id]["name"]
+	end
+
+	def diagnose()
+		if !@answers.index(nil).nil?
+			return nil
+		else
+			chances = []
+			for i in 0..@diseases.count-1
+				chances.push(0)
+				for j in 1..@answers.count
+					if (isSymptom(i+1,j)&&(@answers[j-1]))
+						chances[i]+=1
+					end
+				end
+				chances[i]=likelihood(i+1,chances[i])
+			end
+			return chances.index(chances.max)
+		end
+
+	end
+
 end
 

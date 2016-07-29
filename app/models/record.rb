@@ -14,10 +14,6 @@ class Record
 		@symptoms = getSymptoms(entry["disease_id"])
 	end
 
-	def Record.deleteAll(name)
-		DATA.execute("DELETE * FROM diagnosis where name = '#{name}'")
-	end
-
 	def getDisease(id)
 		dis = DATA.execute("SELECT name FROM disease WHERE id = #{id}")[0]["name"]
 		return dis

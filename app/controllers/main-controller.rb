@@ -5,7 +5,16 @@ MyApp.get "/"  do
 end
 
 MyApp.post "/question" do
-	session['name'] = params[:name]
+	if !params[:name].nil?
+		session['name'] = params[:name]
+	end
+	@answer = params[:answer]
+
+	if @answer=="yes"
+		DOCTOR.answerQuestion(true, session['i'])
+	elsif @answer=="no"
+		DOCTOR.answerQuestion(false, session['i'])
+	end
 	redirect "/question"
 end
 
@@ -15,7 +24,9 @@ MyApp.get "/question" do
 	if @question = DOCTOR.getQuestion(session['i'])
 		erb :"question"
 	else
-		@diagnosis = "TEST"
+		verdict = DOCTOR.diagnose()
+		@diagnosis = DOCTOR.diseaseName(verdict)
+		session['diagnosis'] = @diagnosis
 		erb :"results"
 	end
 end

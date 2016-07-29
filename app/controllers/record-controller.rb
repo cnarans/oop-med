@@ -15,9 +15,10 @@ end
 
 MyApp.get "/save" do
 	@time = Time.now.strftime("%F %T")
-	@name = @name
+	@name = session['name']
+	@disease = session['diagnosis']
 	@disease_id = DATA.execute("SELECT id FROM disease WHERE name = '#{@disease}'")[0][0]
-	DATA.execute("INSERT INTO diagnosis (name, timestamp, disease_id) VALUES ('#{@name}','#{@time}', #{disease_id})")
+	DATA.execute("INSERT INTO diagnosis (name, timestamp, disease_id) VALUES ('#{@name}','#{@time}', #{@disease_id})")
 	erb :"save"
 end
 
@@ -28,6 +29,6 @@ end
 
 MyApp.get "/records/delete" do
   @name = session['name']
-  DATA.execute("DELETE * FROM diagnosis where name = '#{@name}'")
-  erb :"records/delete"
+  DATA.execute("DELETE FROM diagnosis where name = '#{@name}'")
+  erb :"delete"
 end
