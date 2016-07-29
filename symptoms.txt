@@ -1,8 +1,0 @@
-Cough,Do you have a cough?
-Fever,Do you have a fever?
-Headache,Do you have a headache?
-Rash,Do you have a rash?
-Nausea,Are you nauseous?
-Runny Nose,Do you have a runny nose?
-Hair Loss,Are you losing your hair?
-Dry Mouth,Do you have dry mouth?

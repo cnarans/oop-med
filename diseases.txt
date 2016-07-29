@@ -1,4 +1,0 @@
-Lung Cancer,0;2
-Skin Cancer,1;3;4
-Flu,0;1;5
-Lupus,1;3;7

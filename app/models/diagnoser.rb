@@ -5,6 +5,8 @@ class Diagnoser
 	@relationships
 	@answers
 
+	# Constructor
+	#
 	def initialize
 		@symptoms = DATA.execute("SELECT * FROM symptom")
 		@diseases = DATA.execute("SELECT * FROM disease")
@@ -15,16 +17,27 @@ class Diagnoser
 		end
 	end
 
+	# Resets @answers entries to nil
+	#
 	def resetQuestions()
 		for i in 0..@answers.count-1
 			@answers[i]=nil
 		end
 	end
 
+	# Set @answer entry to true or false
+	#
+	# response -> true or false answer to medical question
+	# number -> index of the question/answer
+	#
 	def answerQuestion(response, number)
 		@answers[number]=response
 	end
 
+	# Returns the text of a specific question
+	#
+	# number -> index of the question
+	#
 	def getQuestion(number)
 		if number>@symptoms.count-1
 			return nil
@@ -33,10 +46,19 @@ class Diagnoser
 		end
 	end
 
+	# Returns the name of a specific symptom
+	#
+	# number -> index of the symptom
+	#
 	def getSymptom(number)
 		return @symptoms[number]["name"]
 	end
 
+	# Returns true if the given symptom is related to the given disease
+	#
+	# disease -> index of disease
+	# symptom -> index of symptom
+	#
 	def isSymptom(disease, symptom)
 		opinion = DATA.execute("SELECT * FROM relationship WHERE disease_id=#{disease} AND symptom_id=#{symptom}")
 		if opinion.empty?
@@ -46,6 +68,11 @@ class Diagnoser
 		end
 	end
 
+	# Calculates what percentage of a diseases symptoms are true
+	#
+	# disease -> index of the disease
+	# sympnum -> number of disease symptoms the patient has
+	#
 	def likelihood(disease, sympnum)
 		total = DATA.execute("SELECT * FROM relationship WHERE disease_id=#{disease}")
 		total = total.count.to_f
@@ -53,10 +80,17 @@ class Diagnoser
 		return sympnum/total
 	end
 
+	# Returns the name of a disease
+	#
+	# id -> id of the disease
+	#
 	def diseaseName(id)
 		return @diseases[id]["name"]
 	end
 
+	# diagnose counts up the number of the patient's symptoms for each disease.  The index of the  
+	# disease with the highest ratio of patient symptoms to its total symptoms is returned.
+	#
 	def diagnose()
 		if !@answers.index(nil).nil?
 			return nil
