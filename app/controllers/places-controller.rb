@@ -6,6 +6,6 @@ MyApp.post "/places" do
   @location = Geo.getLocation(@street,@city,@state,@zip)
 	@location = @location.split(",")
 	@places = Places.get_clinics(@location[0],@location[1])[0,5]
-  erb :"places/list"
+  erb :"list"
 end
 
