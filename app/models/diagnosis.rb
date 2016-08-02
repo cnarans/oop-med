@@ -26,7 +26,11 @@ class Diagnosis
 
   	def Diagnosis.getRecords(name)
   		records = DATA.execute("SELECT * FROM diagnosis WHERE name = '#{name}'")
-  		return records
+  		diagnosis_array = []
+  		for record in records
+  			diagnosis_array.push(Diagnosis.new(record["id"], record["name"], record["timestamp"], record["disease_id"]))
+  		end
+  		return diagnosis_array
   	end
 
   	def Diagnosis.deleteRecords(name)
