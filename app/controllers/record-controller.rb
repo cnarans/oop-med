@@ -5,11 +5,11 @@ end
 
 MyApp.get "/records" do
   @name = session['name']
-  @all = DATA.execute("SELECT * FROM diagnosis where name = '#{@name}'")
-  @recs=[]
-  for i in 0..@all.count-1
-  	@recs[i] = Record.new(@all[i])
-  end
+  #@all = DATA.execute("SELECT * FROM diagnosis where name = '#{@name}'")
+  @recs=Diagnosis.getRecords(@name)
+  #for i in 0..@all.count-1
+  #	@recs[i] = Record.new(@all[i])
+  #end
   erb :"records"
 end
 
@@ -29,6 +29,6 @@ end
 
 MyApp.get "/records/delete" do
   @name = session['name']
-  DATA.execute("DELETE FROM diagnosis where name = '#{@name}'")
+  Diagnosis.deleteAll(@name)
   erb :"delete"
 end

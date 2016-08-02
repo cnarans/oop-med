@@ -1,14 +1,20 @@
 class Diagnosis
 
-	attr_reader :id, :name, :timestamp, :disease_id
+	attr_reader :id, :name, :timestamp, :disease_id, :disease, :symptoms
 
-	attr_writer :id, :name, :timestamp, :disease_id
+	attr_writer :id, :name, :timestamp, :disease_id, :disease, :symptoms
 
 	def initialize(id, name, timestamp, disease_id)
 		@id = id
 		@name = name
 		@timestamp = timestamp
 		@disease_id = disease_id
+		@disease = Disease.nameOf(disease_id)
+		@symptoms = []
+		symp_ids = Relationship.allDisease(disease_id)
+		for symp_id in symp_ids
+			@symptoms.push(Symptom.nameOf(symp_id.symptom_id))
+		end
 	end
 
 	def Diagnosis.find(id)

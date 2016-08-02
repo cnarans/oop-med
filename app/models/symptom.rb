@@ -17,6 +17,11 @@ class Symptom
 		Symptom.new(record["id"], record["name"], record["question"])
 	end
 
+	def Symptom.nameOf(id)
+		record = Symptom.find(id)
+		return record.name
+	end
+
 	def save
 	    DATA.execute("INSERT INTO symptom (name, question) VALUES ('#{name}', '#{question}')")
 	    @id = DATA.last_insert_row_id

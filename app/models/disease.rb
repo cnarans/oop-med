@@ -22,4 +22,9 @@ class Disease
     	return self
   	end
 
+  	def Disease.nameOf(id)
+  		record = Disease.find(id)
+  		return record.name
+  	end
+
 end

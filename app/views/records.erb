@@ -8,7 +8,7 @@
   	</tr>
 <% for i in 0..@recs.count-1 %>
 	<tr>
-		<td><%= @recs[i].time() %></td><td><%= @recs[i].symptoms().join(", ") %></td><td><%= @recs[i].disease()%></td></tr>
+		<td><%= @recs[i].timestamp %></td><td><%= @recs[i].symptoms.join(",") %></td><td><%= @recs[i].disease%></td></tr>
 
 <% end %>
 </table>
