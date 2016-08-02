@@ -5,11 +5,7 @@ end
 
 MyApp.get "/records" do
   @name = session['name']
-  #@all = DATA.execute("SELECT * FROM diagnosis where name = '#{@name}'")
   @recs=Diagnosis.getRecords(@name)
-  #for i in 0..@all.count-1
-  #	@recs[i] = Record.new(@all[i])
-  #end
   erb :"records"
 end
 
@@ -18,7 +14,9 @@ MyApp.get "/save" do
 	@name = session['name']
 	@disease = session['diagnosis']
 	@disease_id = DATA.execute("SELECT id FROM disease WHERE name = '#{@disease}'")[0][0]
-	DATA.execute("INSERT INTO diagnosis (name, timestamp, disease_id) VALUES ('#{@name}','#{@time}', #{@disease_id})")
+  @diagnosis = Diagnosis.new(nil, @name, @time, @disease_id)
+  @diagnosis.save
+	#DATA.execute("INSERT INTO diagnosis (name, timestamp, disease_id) VALUES ('#{@name}','#{@time}', #{@disease_id})")
 	erb :"save"
 end
 
@@ -29,6 +27,6 @@ end
 
 MyApp.get "/records/delete" do
   @name = session['name']
-  Diagnosis.deleteAll(@name)
+  Diagnosis.deleteRecords(@name)
   erb :"delete"
 end

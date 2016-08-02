@@ -40,7 +40,7 @@ class Diagnosis
   	end
 
   	def Diagnosis.deleteRecords(name)
-  		DATA.execute("DELETE FROM diagnosis WHERE name = '#{@name}'")
+  		DATA.execute("DELETE FROM diagnosis WHERE name = '#{name}'")
   	end
 
 end
