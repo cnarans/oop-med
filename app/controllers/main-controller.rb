@@ -25,7 +25,7 @@ MyApp.get "/question" do
 		erb :"question"
 	else
 		verdict = DOCTOR.diagnose()
-		@diagnosis = Disease.nameOf(verdict-1)
+		@diagnosis = Disease.nameOf(verdict+1)
 		session['diagnosis'] = @diagnosis
 		erb :"results"
 	end

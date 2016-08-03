@@ -1,5 +1,9 @@
 class Disease
 
+	@table = "disease"
+
+	extend MedORM
+
 	attr_reader :id, :name
 
 	attr_writer :id, :name

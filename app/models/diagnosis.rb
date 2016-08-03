@@ -1,4 +1,8 @@
 class Diagnosis
+	require_relative 'medorm.rb'
+	extend MedORM
+
+	@table = "diagnosis"
 
 	attr_reader :id, :name, :timestamp, :disease_id, :disease, :symptoms
 
@@ -17,12 +21,12 @@ class Diagnosis
 		end
 	end
 
-	def Diagnosis.find(id)
-		records = DATA.execute("SELECT * FROM diagnosis WHERE id = #{id}")
-		record = records[0]
-
-		Diagnosis.new(record["id"], record["name"], record["timestamp"], record["disease_id"])
-	end
+#	def Diagnosis.find(id)
+#		records = DATA.execute("SELECT * FROM diagnosis WHERE id = #{id}")
+#		record = records[0]
+#
+#		Diagnosis.new(record["id"], record["name"], record["timestamp"], record["disease_id"])
+#	end
 
 	def save
 	    DATA.execute("INSERT INTO diagnosis (name, timestamp, disease_id) VALUES ('#{name}', '#{timestamp}', #{disease_id})")

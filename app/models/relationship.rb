@@ -1,5 +1,9 @@
 class Relationship
 
+	@table = "relationship"
+
+	extend MedORM
+
 	attr_reader :id, :disease_id, :symptom_id
 
 	attr_writer :id, :disease_id, :symptom_id
