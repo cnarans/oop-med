@@ -11,9 +11,9 @@ MyApp.post "/question" do
 	@answer = params[:answer]
 
 	if @answer=="yes"
-		DOCTOR.answerQuestion(true, session['i'])
+		DOCTOR.answers[session['i']]=true
 	elsif @answer=="no"
-		DOCTOR.answerQuestion(false, session['i'])
+		DOCTOR.answers[session['i']]=false
 	end
 	redirect "/question"
 end

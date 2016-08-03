@@ -4,14 +4,14 @@ require 'test_helper'
 class SymptomTest < Minitest::Test
 
   def test_symptomfind
-    DATA.execute("INSERT INTO symptom (name, question) VALUES ('Hyperdeath', 'Face melt')")
+    DATA.execute("INSERT INTO symptom (name, question) VALUES ('Hyperflu', 'Face melt')")
 
     last_id = DATA.last_insert_row_id
 
     sym = Symptom.find(last_id)
 
     refute_nil(sym)
-    assert_equal("Hyperdeath", sym.name)
+    assert_equal("Hyperflu", sym.name)
     assert_equal("Face melt", sym.question)
     assert_equal(last_id, sym.id)
   end

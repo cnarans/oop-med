@@ -5,6 +5,9 @@ class Diagnoser
 	@relationships
 	@answers
 
+	attr_reader :symptoms, :diseases, :relationships, :answers
+	attr_writer :symptoms, :diseases, :relationships, :answers
+
 	# Constructor
 	#
 	def initialize
