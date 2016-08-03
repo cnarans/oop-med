@@ -21,11 +21,11 @@ end
 MyApp.get "/question" do
 	session['i']+=1
 	@name = session['name']
-	if @question = DOCTOR.getQuestion(session['i'])
+	if @question = Symptom.getQuestion(session['i']+1)
 		erb :"question"
 	else
 		verdict = DOCTOR.diagnose()
-		@diagnosis = DOCTOR.diseaseName(verdict)
+		@diagnosis = Disease.nameOf(verdict-1)
 		session['diagnosis'] = @diagnosis
 		erb :"results"
 	end

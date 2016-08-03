@@ -13,6 +13,7 @@ class DiseaseTest < Minitest::Test
     refute_nil(dis)
     assert_equal("Hyperdeath", dis.name)
     assert_equal(last_id, dis.id)
+    DATA.execute("DELETE FROM disease WHERE id==#{last_id}")
   end
 
   def test_diseasesave
@@ -22,6 +23,7 @@ class DiseaseTest < Minitest::Test
     dis_load = Disease.find(last_id)
     assert_equal(dis.id, dis_load.id)
     assert_equal(dis.name, dis_load.name)
+    DATA.execute("DELETE FROM disease WHERE id==#{last_id}")
   end
 
 end

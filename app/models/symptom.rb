@@ -13,13 +13,29 @@ class Symptom
 	def Symptom.find(id)
 		records = DATA.execute("SELECT * FROM symptom WHERE id = #{id}")
 		record = records[0]
-
-		Symptom.new(record["id"], record["name"], record["question"])
+		if record.nil?
+			return nil
+		else
+			return Symptom.new(record["id"], record["name"], record["question"])
+		end
 	end
 
 	def Symptom.nameOf(id)
 		record = Symptom.find(id)
-		return record.name
+		if record.nil?
+			return nil
+		else
+			return record.name
+		end
+	end
+
+	def Symptom.getQuestion(id)
+		record = Symptom.find(id)
+		if record.nil?
+			return nil
+		else
+			return record.question
+		end
 	end
 
 	def save

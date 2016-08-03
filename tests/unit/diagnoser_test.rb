@@ -8,9 +8,18 @@ class DiagnosisTest < Minitest::Test
   end
 
   def test_diagnoser
-
   	doctor = Diagnoser.new
+  	for i in 0..doctor.answers.count-1
+  		doctor.answers[i]=true
+  	end
+  	verdict = doctor.diagnose()
+  	doctor.resetQuestions()
 
+  	refute_nil(verdict)
+
+  	for answer in doctor.answers
+  		assert_equal(answer, nil)
+  	end
   end
 
  end

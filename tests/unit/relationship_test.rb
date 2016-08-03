@@ -14,6 +14,8 @@ class RelationshipTest < Minitest::Test
     assert_equal(1, rel.disease_id)
     assert_equal(2, rel.symptom_id)
     assert_equal(last_id, rel.id)
+
+    DATA.execute("DELETE FROM relationship WHERE id==#{last_id}")
   end
 
   def test_relationshipsave
@@ -24,6 +26,7 @@ class RelationshipTest < Minitest::Test
     assert_equal(rel.id, rel_load.id)
     assert_equal(rel.disease_id, rel_load.disease_id)
     assert_equal(rel.symptom_id, rel_load.symptom_id)
+    DATA.execute("DELETE FROM relationship WHERE id==#{last_id}")
   end
 
 end

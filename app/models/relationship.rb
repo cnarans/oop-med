@@ -32,13 +32,4 @@ class Relationship
   		return return_arr
   	end
 
-  	def Relationship.allSymptom(symptom_id)
-  		records = DATA.execute("SELECT * FROM relationship WHERE symptom_id = #{symptom_id}")
-  		return_arr = []
-  		for record in records
-  			return_arr.push(Relationship.new(record["id"], record["disease_id"], record["symptom_id"]))
-  		end
-  		return return_arr
-  	end
-
 end

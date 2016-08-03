@@ -28,35 +28,6 @@ class Diagnoser
 		end
 	end
 
-	# Set @answer entry to true or false
-	#
-	# response -> true or false answer to medical question
-	# number -> index of the question/answer
-	#
-	def answerQuestion(response, number)
-		@answers[number]=response
-	end
-
-	# Returns the text of a specific question
-	#
-	# number -> index of the question
-	#
-	def getQuestion(number)
-		if number>@symptoms.count-1
-			return nil
-		else
-			return @symptoms[number]["question"]
-		end
-	end
-
-	# Returns the name of a specific symptom
-	#
-	# number -> index of the symptom
-	#
-	def getSymptom(number)
-		return @symptoms[number]["name"]
-	end
-
 	# Returns true if the given symptom is related to the given disease
 	#
 	# disease -> index of disease
@@ -81,14 +52,6 @@ class Diagnoser
 		total = total.count.to_f
 		sympnum = sympnum.to_f
 		return sympnum/total
-	end
-
-	# Returns the name of a disease
-	#
-	# id -> id of the disease
-	#
-	def diseaseName(id)
-		return @diseases[id]["name"]
 	end
 
 	# diagnose counts up the number of the patient's symptoms for each disease.  The index of the  

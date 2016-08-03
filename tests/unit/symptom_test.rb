@@ -14,6 +14,8 @@ class SymptomTest < Minitest::Test
     assert_equal("Hyperflu", sym.name)
     assert_equal("Face melt", sym.question)
     assert_equal(last_id, sym.id)
+
+    DATA.execute("DELETE FROM symptom WHERE id==#{last_id}")
   end
 
   def test_symptomsave
@@ -24,6 +26,7 @@ class SymptomTest < Minitest::Test
     assert_equal(sym.id, sym_load.id)
     assert_equal(sym.name, sym_load.name)
     assert_equal(sym.question, sym_load.question)
+    DATA.execute("DELETE FROM symptom WHERE id==#{last_id}")
   end
 
 end
