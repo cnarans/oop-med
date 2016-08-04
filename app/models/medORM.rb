@@ -17,13 +17,13 @@ module MedORM
       self.new(*fields)
   end
 
-	def where(search)
+	def where(search, operator)
 		where_clause=[]
 		for i in 0..search.count-1
 			if search.values[i].is_a? String
-				where_clause.push("#{search.keys[i]}='#{search.values[i]}'")
+				where_clause.push("#{search.keys[i]}#{operator}'#{search.values[i]}'")
 			else
-				where_clause.push("#{search.keys[i]}=#{search.values[i]}")
+				where_clause.push("#{search.keys[i]}#{operator}#{search.values[i]}")
 			end
 		end
 		where_clause = where_clause.join(" AND ")
