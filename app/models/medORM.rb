@@ -6,10 +6,15 @@ module MedORM
 	    records = DATA.execute("SELECT * FROM #{@table} WHERE id = #{id}")
 	    record = records[0]
       fields=[]
-      for i in 0..((record.count/2)-1)
-        fields.push(record[i])
+      if record.nil?
+        return nil
+      else
+        for i in 0..((record.count/2)-1)
+          fields.push(record[i])
+        end
       end
-	    self.new(*fields)
+      
+      self.new(*fields)
   end
 
 	def where(search)

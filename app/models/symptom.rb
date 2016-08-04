@@ -14,16 +14,6 @@ class Symptom
 		@question = question
 	end
 
-	def Symptom.find(id)
-		records = DATA.execute("SELECT * FROM symptom WHERE id = #{id}")
-		record = records[0]
-		if record.nil?
-			return nil
-		else
-			return Symptom.new(record["id"], record["name"], record["question"])
-		end
-	end
-
 	def Symptom.nameOf(id)
 		record = Symptom.find(id)
 		if record.nil?
