@@ -28,27 +28,13 @@ class Diagnoser
 		end
 	end
 
-	# Returns true if the given symptom is related to the given disease
-	#
-	# disease -> index of disease
-	# symptom -> index of symptom
-	#
-	def isSymptom(disease, symptom)
-		opinion = DATA.execute("SELECT * FROM relationship WHERE disease_id=#{disease} AND symptom_id=#{symptom}")
-		if opinion.empty?
-			return false
-		else
-			return true
-		end
-	end
-
 	# Calculates what percentage of a diseases symptoms are true
 	#
 	# disease -> index of the disease
 	# sympnum -> number of disease symptoms the patient has
 	#
 	def likelihood(disease, sympnum)
-		total = DATA.execute("SELECT * FROM relationship WHERE disease_id=#{disease}")
+		total = Relationship.allDisease(disease)
 		total = total.count.to_f
 		sympnum = sympnum.to_f
 		return sympnum/total
@@ -65,7 +51,7 @@ class Diagnoser
 			for i in 0..@diseases.count-1
 				chances.push(0)
 				for j in 1..@answers.count
-					if (isSymptom(i+1,j)&&(@answers[j-1]))
+					if (Relationship.isSymptom(i+1,j)&&(@answers[j-1]))
 						chances[i]+=1
 					end
 				end

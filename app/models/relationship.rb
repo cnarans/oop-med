@@ -29,4 +29,18 @@ class Relationship
   		return return_arr
   	end
 
+  	# Returns true if the given symptom is related to the given disease
+	#
+	# disease -> index of disease
+	# symptom -> index of symptom
+	#
+	def Relationship.isSymptom(disease, symptom)
+		opinion = DATA.execute("SELECT * FROM relationship WHERE disease_id=#{disease} AND symptom_id=#{symptom}")
+		if opinion.empty?
+			return false
+		else
+			return true
+		end
+	end
+
 end
