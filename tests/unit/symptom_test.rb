@@ -13,6 +13,7 @@ class SymptomTest < Minitest::Test
     refute_nil(sym)
     assert_equal("Hyperflu", sym.name)
     assert_equal("Face melt", sym.question)
+    assert_equal("Face melt", Symptom.getQuestion(last_id))
     assert_equal(last_id, sym.id)
 
     DATA.execute("DELETE FROM symptom WHERE id==#{last_id}")
